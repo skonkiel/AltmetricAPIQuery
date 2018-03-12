@@ -24,7 +24,7 @@ with open('./top1000.csv', encoding="ISO-8859-1") as inputfile:
             rPMID = responsePMID.status_code # Get the response code to make sure API isn't down <https://api.altmetric.com/index.html#responsecodes>
 
             if rPMID == 200: # If API is functioning...
-                result = responsePMID.json() # ... return the API result for the paper in question, in JSON format
+                result = responsePMID.json() # ... fetch the API result for the paper in question, in JSON format
 
                 ''' Here's where you select a particular API field (in this case, the title of a paper) in order
                 to get information. If you have a key, you can query anything that would appear in the /fetch API results
@@ -44,13 +44,4 @@ with open('./top1000.csv', encoding="ISO-8859-1") as inputfile:
             if r == 200:
                 result = response.json()
 
-                ''' Here's where you select a particular API field (in this case, the title of a paper) in order
-                to get information. If you have a key, you can query anything that would appear in the /fetch API results
-                https://api.altmetric.com/docs/call_fetch.html; otherwise, you can query anything that appears in the free
-                API results https://api.altmetric.com/docs/call_doi.html '''
-                if 'title' in result: # Looks for 'title' key in JSON API response
-                    title = json.dumps(result['title']) # Gets the contents of the 'title' key from API response
-                    title = title.strip('""') # Strips out the quotes to make it easier to read/write
-                    # Do something here like store the information you've retrieved in an array, write information to file, etc
-                else:
-                    pass
+                # Do something
