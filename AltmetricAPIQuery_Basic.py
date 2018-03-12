@@ -17,14 +17,14 @@ with open('./top1000.csv', encoding="ISO-8859-1") as inputfile:
     for row in reader:
         time.sleep(1) # If using free (no key) API, delay each API call by 1 second to avoid being rate-limted
         doi = row['dois'] # Creates a DOI variable from DOI in spreadsheet
-        if doi == '': # If there is no DOI, find the PubMed ID to query the API instead
-            pmid = row['PubMed ID']
-            apiPMID = "http://api.altmetric.com/v1/pmid/" # The basic API query URL for PubMed IDs
-            responsePMID = requests.get(apiPMID + pmid + key) # Calls API; remove '+ key' if you are calling the basic (rate-limited API)
-            rPMID = responsePMID.status_code # Get the response code to make sure API isn't down <https://api.altmetric.com/index.html#responsecodes>
+        if doi == '': # If there is no DOI, flag the error
+            print("No DOI!")
+        else: # If there is a DOI...
+            response = requests.get(api + doi + key) # send the API request
+            r = response.status_code # checks if there's a record or not; if we don't have data for the DOI in question, you'll get a 404 error
 
-            if rPMID == 200: # If API is functioning...
-                result = responsePMID.json() # ... fetch the API result for the paper in question, in JSON format
+            if r == 200: # If all is working as it should and we have a record for the DOI...
+                result = response.json() # Load the API result in JSON format
 
                 ''' Here's where you select a particular API field (in this case, the title of a paper) in order
                 to get information. If you have a key, you can query anything that would appear in the /fetch API results
@@ -34,14 +34,5 @@ with open('./top1000.csv', encoding="ISO-8859-1") as inputfile:
                     title = json.dumps(result['title']) # Gets the contents of the 'title' key from API response
                     title = title.strip('""') # Strips out the quotes to make it easier to read/write
                     # Do something here like store the information you've retrieved in an array, write information to file, etc
-                else:
+                else: # If the 'title' key does not exist, move on to the next row
                     pass
-
-        else: # If there is a DOI...
-            response = requests.get(api + doi + key) # send the API request
-            r = response.status_code # if there's a record or not
-
-            if r == 200:
-                result = response.json()
-
-                # Do something
