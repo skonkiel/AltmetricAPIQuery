@@ -37,7 +37,7 @@ with open('./top1000.csv', encoding="ISO-8859-1") as inputfile:
                 else:
                     pass
 
-        elif: # If there is a DOI...
+        else: # If there is a DOI...
             response = requests.get(api + doi + key) # send the API request
             r = response.status_code # if there's a record or not
 
