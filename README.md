@@ -15,10 +15,12 @@ I may not be able to provide technical support, so caveat emptor.
 
 ## How to use
 
-Make sure Python 3 is installed on your machine
-Download the script to the directory where your CSV file lives
-Open your command line tool (Terminal on Mac), navigate to the directory where the script has been downloaded, then
+1. Make sure Python 3 is installed on your machine
+2. Download the script to the directory where your CSV file lives
+3. Open your command line tool (Terminal on Mac), navigate to the directory where the script has been downloaded, then
 type ```python3.6 AltmetricAPIQuery_Basic.py``` to run the script
+4. Tweak the script to meet your needs, then run it again
+5. Rinse and repeat
 
 ## Resources
 
