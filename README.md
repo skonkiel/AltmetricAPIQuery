@@ -3,7 +3,7 @@
 This is a bare-bones Python script that's intended to be used by researchers who
 are just learning how to query the Altmetric API, as well as those that want the freedom to tinker. You will have to
 tweak it to be able to locally save the data that's pulled from the API. It assumes you have a CSV file
-full of DOIs and/or PMIDs that you want to use to query the API.
+full of DOIs that you want to use to query the API.
 
 There are Python packages already out there for querying the Altmetric
 API in Python, but for a variety of reasons you may want to use a simple script instead. (At least,
