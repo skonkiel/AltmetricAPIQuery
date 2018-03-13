@@ -3,6 +3,7 @@
 import requests # needed to query the api and return content
 import json # needed to parse the json file that the API returns
 import time # needed to rate-limit queries (use only if you do not have an API key)
+import csv
 
 api = "http://api.altmetric.com/v1/doi/" # Here's the basic API query URL for DOIs
 key = 'YOURS_GOES_HERE'
@@ -15,7 +16,7 @@ with open('./top1000.csv', encoding="ISO-8859-1") as inputfile:
 
     # This section will go through the CSV file, line by line, to find a DOI or PMID to use to query the Altmetric API
     for row in reader:
-        time.sleep(1) # If using free (no key) API, delay each API call by 1 second to avoid being rate-limted
+        time.sleep(1) # If using free (no key) API, delay each API call by 1 second to avoid being rate-limted; if you have an API key, you can remove this line
         doi = row['dois'] # Creates a DOI variable from DOI in spreadsheet
         if doi == '': # If there is no DOI, flag the error
             print("No DOI!")
@@ -36,3 +37,6 @@ with open('./top1000.csv', encoding="ISO-8859-1") as inputfile:
                     # Do something here like store the information you've retrieved in an array, write information to file, etc
                 else: # If the 'title' key does not exist, move on to the next row
                     pass
+
+            else:
+                print("ERROR: " + str(r))
